@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solucionario Rápido: 150 Modelos Cristalográficos - UNAL Medellín</title>
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-card: #1e293b;
+            --accent-cyan: #38bdf8;
+            --accent-gold: #f59e0b;
+            --accent-emerald: #10b981;
+            --accent-purple: #c084fc;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --border: #334155;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+        body { background-color: var(--bg-primary); color: var(--text-primary); padding: 20px; line-height: 1.5; }
+
+        header {
+            max-width: 1200px;
+            margin: 0 auto 25px auto;
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: 1px solid var(--border);
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.5);
+        }
+
+        .header-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+        .header-title {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #38bdf8, #c084fc, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .header-sub { color: var(--text-secondary); font-size: 0.95rem; margin-top: 6px; }
+
+        .btn-nav {
+            background: rgba(56, 189, 248, 0.15);
+            color: var(--accent-cyan);
+            border: 1px solid var(--accent-cyan);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 9999px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+        .btn-nav:hover { background: var(--accent-cyan); color: #0f172a; }
+
+        .search-area {
+            max-width: 1200px;
+            margin: 0 auto 25px auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 16px 20px;
+            background: var(--bg-card);
+            border: 2px solid var(--accent-cyan);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 1.1rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .search-input:focus { border-color: var(--accent-gold); box-shadow: 0 0 15px rgba(245, 158, 11, 0.3); }
+
+        .chips-container { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 5px; }
+        .chip {
+            background: #1e293b;
+            color: var(--text-secondary);
+            padding: 8px 14px;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1px solid var(--border);
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+        .chip.active, .chip:hover { background: var(--accent-cyan); color: #0f172a; border-color: var(--accent-cyan); }
+
+        .grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .card:hover { transform: translateY(-3px); border-color: var(--accent-cyan); }
+
+        .card-top { display: flex; justify-content: space-between; align-items: center; }
+        .model-num {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--accent-gold);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .model-num::before { content: "🔷"; font-size: 1rem; }
+
+        .sys-badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 9999px;
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--accent-cyan);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+        }
+
+        .class-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--accent-purple);
+            border-bottom: 1px dashed var(--border);
+            padding-bottom: 6px;
+        }
+
+        .notation-box {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            background: rgba(15, 23, 42, 0.6);
+            padding: 10px 12px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+        .notation-box span { color: var(--text-secondary); }
+        .notation-val { font-weight: 700; color: #fff; margin-left: 4px; font-family: monospace; font-size: 0.95rem; }
+
+        .forms-box {
+            font-size: 0.9rem;
+            color: #e2e8f0;
+            background: rgba(15, 23, 42, 0.4);
+            padding: 12px;
+            border-radius: 8px;
+            white-space: pre-line;
+            border-left: 3px solid var(--accent-emerald);
+        }
+
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 40px;
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-row">
+            <div>
+                <h1 class="header-title">Solucionario Rápido: 150 Modelos Cristalográficos</h1>
+                <div class="header-sub">Laboratorio de Mineralogía (CMLAMIN) — Facultad de Minas, UNAL Medellín</div>
+            </div>
+            <a href="index.html" class="btn-nav">🏛️ Ir a Inventario de Minerales</a>
+        </div>
+    </header>
+
+    <div class="search-area">
+        <input type="text" id="searchInput" class="search-input" placeholder="Escribe un número de modelo (1 a 150) o cualquier término..." str-focus>
+        
+        <div class="chips-container" id="sysChips">
+            <button class="chip active" data-sys="ALL">Todos los Sistemas (150)</button>
+            <button class="chip" data-sys="Cúbico">Isométrico (1-53)</button>
+            <button class="chip" data-sys="Hexagonal">Hexagonal (54-68)</button>
+            <button class="chip" data-sys="Trigonal">Trigonal / Romboédrico (69-88)</button>
+            <button class="chip" data-sys="Tetragonal">Tetragonal (89-111)</button>
+            <button class="chip" data-sys="Ortorrómbico">Ortorrómbico (112-125)</button>
+            <button class="chip" data-sys="Monoclínico">Monoclínico (126-145)</button>
+            <button class="chip" data-sys="Triclínico">Triclínico (146-150)</button>
+        </div>
+    </div>
+
+    <div class="grid" id="modelsGrid"></div>
+
+    <script>
+        const modelsData = [{"n": 1, "s": "Cúbico (Isométrico)", "c": "Clase Hexaquisoctaédrica", "hm": "4/m 3̄ 2/m", "sim": "3A4 4A3 6A2 9P C", "f": "a) Octaedro"}, {"n": 2, "s": "Cúbico (Isométrico)", "c": "Clase Hexaquisoctaédrica", "hm": "4/m 3̄ 2/m", "sim": "3A4 4A3 6A2 9P C", "f": "a) Cubo"}, {"n": 3, "s": "Cúbico (Isométrico)", "c": "Clase Hexaquisoctaédrica", "hm": "4/m 3̄ 2/m", "sim": "3A4 4A3 6A2 9P C", "f": "a) Dodecaedro Rómbico"}, {"n": 4, "s": "Cúbico (Isométrico)", "c": "Clase Hexaquisoctaédrica", "hm": "4/m 3̄ 2/m", "sim": "3A4 4A3 6A2 9P C", "f": "a) Trapezoedro"}, {"n": 5, "s": "Cúbico (Isométrico)", "c": "Clase Hexaquisoctaédrica", "hm": "4/m 3̄ 2/m", "sim": "3A4 4A3 6A2 9P C", "f": "a) Trapezoedro"}, {"n": 6, "s": "Cúbico (Isométrico)", "c": "Clase Hexaquisoctaédrica", "hm": "4/m 3̄ 2/m", "sim": "3A4 4A3 6A2 9P C", "f": "a) Triaquisoctaedro"}, {"n": 7, "s": "Cúbico (Isométrico)", "c": "Clase Hexaquisoctaédrica", "hm": "4/m 3̄ 2/m", "sim": "3A4 4A3 6A2 9P C", "f": "a) Tetraquishexaedro"}, {"n": 8, "s": "Cúbico (Isométrico)", "c": "Clase Hexaquisoctaédrica", "hm": "4/m 3̄ 2/m", "sim": "3A4 4A3 6A2 9P C", "f": "a) Hexaquisoctaedro"}, {"n": 9, "s": "Cúbico (Isométrico)", "c": "Clase Hexaquisoctaédrica", "hm": "4/m 3̄ 2/m", "sim": "3A4 4A3 6A2 9P C", "f": "a) Hexaquisoctaedro"}, {"n": 10, "s": "Cúbico (Isométrico)", "c": "Clase Hexaquisoctaédrica", "hm": "4/m 3̄ 2/m", "sim": "3A4 4A3 6A2 9P C", "f": "a) Octaedro\nb) Cubo"}, {"n": 11, "s": "Cúbico (Isométrico)", "c": "Clase Hexaquisoctaédrica", "hm": "4/m 3̄ 2/m", "sim": "3A4 4A3 6A2 9P C", "f": "a) Cubo\nb) Octaedro"}, {"n": 12, "s": "Cúbico (Isométrico)", "c": "Clase Hexaquisoctaédrica", "hm": "4/m 3̄ 2/m", "sim": "3A4 4A3 6A2 9P C", "f": "a) Cubo\nb) Octaedro\nc) Dodecaedro Rómbico"}, {"n": 13, "s": "Cúbico (Isométrico)", "c": "Clase Hexaquisoctaédrica", "hm": "4/m 3̄ 2/m", "sim": "3A4 4A3 6A2 9P C", "f": "a) Cubo\nb) Octaedro\nc) Dodecaedro Rómbico"}, {"n": 14, "s": "Cúbico (Isométrico)", "c": "Clase Hexaquisoctaédrica", "hm": "4/m 3̄ 2/m", "sim": "3A4 4A3 6A2 9P C", "f": "a) Cubo\nb) Octaedro\nc) Dodecaedro Rómbico"}, {"n": 15, "s": "Cúbico (Isométrico)", "c": "Clase Hexaquisoctaédrica", "hm": "4/m 3̄ 2/m", "sim": "3A4 4A3 6A2 9P C", "f": "a) Octaedro\nb) Trapezoedro"}, {"n": 16, "s": "Cúbico (Isométrico)", "c": "Clase Hexaquisoctaédrica", "hm": "4/m 3̄ 2/m", "sim": "3A4 4A3 6A2 9P C", "f": "a) Octaedro\nb) Tetraquishexaedro"}, {"n": 17, "s": "Cúbico (Isométrico)", "c": "Clase Hexaquisoctaédrica", "hm": "4/m 3̄ 2/m", "sim": "3A4 4A3 6A2 9P C", "f": "a) Octaedro\nb) Triaquisoctaedro"}, {"n": 18, "s": "Cúbico (Isométrico)", "c": "Clase Hexaquisoctaédrica", "hm": "4/m 3̄ 2/m", "sim": "3A4 4A3 6A2 9P C", "f": "a) Octaedro\nb) Hexaquisoctaedro"}, {"n": 19, "s": "Cúbico (Isométrico)", "c": "Clase Hexaquisoctaédrica", "hm": "4/m 3̄ 2/m", "sim": "3A4 4A3 6A2 9P C", "f": "a) Cubo\nb) Tetraquishexaedro"}, {"n": 20, "s": "Cúbico (Isométrico)", "c": "Clase Hexaquisoctaédrica", "hm": "4/m 3̄ 2/m", "sim": "3A4 4A3 6A2 9P C", "f": "a) Cubo\nb) Trapezoedro"}, {"n": 21, "s": "Cúbico (Isométrico)", "c": "Clase Hexaquisoctaédrica", "hm": "4/m 3̄ 2/m", "sim": "3A4 4A3 6A2 9P C", "f": "a) Cubo\nb) Hexaquisoctaedro"}, {"n": 22, "s": "Cúbico (Isométrico)", "c": "Clase Hexaquisoctaédrica", "hm": "4/m 3̄ 2/m", "sim": "3A4 4A3 6A2 9P C", "f": "a) Octaedro\nb) Dodecaedro Rómbico\nc) Triaquisoctaedro"}, {"n": 23, "s": "Cúbico (Isométrico)", "c": "Clase Hexaquisoctaédrica", "hm": "4/m 3̄ 2/m", "sim": "3A4 4A3 6A2 9P C", "f": "a) Octaedro\nb) Cubo\nc) Dodecaedro Rómbico\nd) Triaquisoctaedro"}, {"n": 24, "s": "Cúbico (Isométrico)", "c": "Clase Hexaquisoctaédrica", "hm": "4/m 3̄ 2/m", "sim": "3A4 4A3 6A2 9P C", "f": "a) Dodecaedro Rómbico\nb) Trapezoedro"}, {"n": 25, "s": "Cúbico (Isométrico)", "c": "Clase Hexaquisoctaédrica", "hm": "4/m 3̄ 2/m", "sim": "3A4 4A3 6A2 9P C", "f": "a) Dodecaedro Rómbico\nb) Trapezoedro\nc) Hexaquisoctaedro"}, {"n": 26, "s": "Cúbico (Isométrico)", "c": "Clase Hexaquisoctaédrica", "hm": "4/m 3̄ 2/m", "sim": "3A4 4A3 6A2 9P C", "f": "a) Cubo\nb) Dodecaedro Rómbico\nc) Octaedro\nd) Trapezoedro\ne) Triaquisoctaedro"}, {"n": 27, "s": "Cúbico (Isométrico)", "c": "Clase Hexaquisoctaédrica", "hm": "4/m 3̄ 2/m", "sim": "3A4 4A3 6A2 9P C", "f": "Macla de contacto de Octaedro (Ley de la Espinela / Magnetita).\nPlano de macla y composición paralelo al plano ternario.\nEje de macla: Eje ternario (A3)."}, {"n": 28, "s": "Cúbico (Isométrico)", "c": "Clase Hexaquisoctaédrica", "hm": "4/m 3̄ 2/m", "sim": "3A4 4A3 6A2 9P C", "f": "Macla de contacto de Cubo (Galena y Fluorita).\nPlano de macla y composición paralelo al plano ternario.\nEje de macla: Eje ternario (A3)."}, {"n": 29, "s": "Cúbico (Isométrico)", "c": "Clase Hexaquisoctaédrica", "hm": "4/m 3̄ 2/m", "sim": "3A4 4A3 6A2 9P C", "f": "Macla de penetración de Cubo.\nPlano de macla paralelo al plano ternario.\nEje de macla: Eje ternario (A3)."}, {"n": 30, "s": "Cúbico (Isométrico)", "c": "Clase Hexaquisoctaédrica", "hm": "4/m 3̄ 2/m", "sim": "3A4 4A3 6A2 9P C", "f": "Macla de contacto de Cubo + Octaedro.\nPlano de macla y composición paralelo al plano ternario.\nEje de macla: Eje ternario (A3)."}, {"n": 31, "s": "Cúbico (Isométrico)", "c": "Clase Hexaquistetraédrica", "hm": "4̄ 3 m", "sim": "3Ā4 4A3 6P", "f": "a) Tetraedro"}, {"n": 32, "s": "Cúbico (Isométrico)", "c": "Clase Hexaquistetraédrica", "hm": "4̄ 3 m", "sim": "3Ā4 4A3 6P", "f": "a) Triaquistetraedro"}, {"n": 33, "s": "Cúbico (Isométrico)", "c": "Clase Hexaquistetraédrica", "hm": "4̄ 3 m", "sim": "3Ā4 4A3 6P", "f": "a) Dodecaedro Deltoide"}, {"n": 34, "s": "Cúbico (Isométrico)", "c": "Clase Hexaquistetraédrica", "hm": "4̄ 3 m", "sim": "3Ā4 4A3 6P", "f": "a) Hexaquistetraedro"}, {"n": 35, "s": "Cúbico (Isométrico)", "c": "Clase Hexaquistetraédrica", "hm": "4̄ 3 m", "sim": "3Ā4 4A3 6P", "f": "a) Cubo\nb) Tetraedro"}, {"n": 36, "s": "Cúbico (Isométrico)", "c": "Clase Hexaquistetraédrica", "hm": "4̄ 3 m", "sim": "3Ā4 4A3 6P", "f": "a) Dodecaedro Rómbico\nb) Tetraedro"}, {"n": 37, "s": "Cúbico (Isométrico)", "c": "Clase Hexaquistetraédrica", "hm": "4̄ 3 m", "sim": "3Ā4 4A3 6P", "f": "a) Tetraedro Positivo\nb) Tetraedro Negativo"}, {"n": 38, "s": "Cúbico (Isométrico)", "c": "Clase Hexaquistetraédrica", "hm": "4̄ 3 m", "sim": "3Ā4 4A3 6P", "f": "a) Tetraedro\nb) Cubo\nc) Dodecaedro Rómbico"}, {"n": 39, "s": "Cúbico (Isométrico)", "c": "Clase Hexaquistetraédrica", "hm": "4̄ 3 m", "sim": "3Ā4 4A3 6P", "f": "a) Tetraedro\nb) Triaquistetraedro"}, {"n": 40, "s": "Cúbico (Isométrico)", "c": "Clase Hexaquistetraédrica", "hm": "4̄ 3 m", "sim": "3Ā4 4A3 6P", "f": "a) Tetraedro\nb) Dodecaedro Deltoide"}, {"n": 41, "s": "Cúbico (Isométrico)", "c": "Clase Diploédrica (Piritoédrica)", "hm": "2/m 3̄", "sim": "3A2 4Ā3 3P C", "f": "a) Piritoedro (Dodecaedro Pentagonal)"}, {"n": 42, "s": "Cúbico (Isométrico)", "c": "Clase Diploédrica (Piritoédrica)", "hm": "2/m 3̄", "sim": "3A2 4Ā3 3P C", "f": "a) Diploide (Hexaquisoctaedro Piritoédrico)"}, {"n": 43, "s": "Cúbico (Isométrico)", "c": "Clase Diploédrica (Piritoédrica)", "hm": "2/m 3̄", "sim": "3A2 4Ā3 3P C", "f": "a) Cubo\nb) Piritoedro"}, {"n": 44, "s": "Cúbico (Isométrico)", "c": "Clase Diploédrica (Piritoédrica)", "hm": "2/m 3̄", "sim": "3A2 4Ā3 3P C", "f": "a) Cubo\nb) Piritoedro\nc) Octaedro"}, {"n": 45, "s": "Cúbico (Isométrico)", "c": "Clase Diploédrica (Piritoédrica)", "hm": "2/m 3̄", "sim": "3A2 4Ā3 3P C", "f": "a) Octaedro\nb) Piritoedro"}, {"n": 46, "s": "Cúbico (Isométrico)", "c": "Clase Diploédrica (Piritoédrica)", "hm": "2/m 3̄", "sim": "3A2 4Ā3 3P C", "f": "a) Octaedro\nb) Diploide"}, {"n": 47, "s": "Cúbico (Isométrico)", "c": "Clase Diploédrica (Piritoédrica)", "hm": "2/m 3̄", "sim": "3A2 4Ā3 3P C", "f": "Macla de penetración de Piritoedro ('Cruz de Hierro').\nPlano de macla paralelo al plano dodecaédrico.\nEje de macla: Eje ternario o binario."}, {"n": 48, "s": "Cúbico (Isométrico)", "c": "Clase Diploédrica (Piritoédrica)", "hm": "2/m 3̄", "sim": "3A2 4Ā3 3P C", "f": "Macla de penetración de Piritoedro con Cubo."}, {"n": 49, "s": "Cúbico (Isométrico)", "c": "Clase Giroidal", "hm": "4 3 2", "sim": "3A4 4A3 6A2", "f": "a) Giroedro Derecho"}, {"n": 50, "s": "Cúbico (Isométrico)", "c": "Clase Giroidal", "hm": "4 3 2", "sim": "3A4 4A3 6A2", "f": "a) Giroedro Izquierdo"}, {"n": 51, "s": "Cúbico (Isométrico)", "c": "Clase Tetartoédrica", "hm": "2 3", "sim": "3A2 4A3", "f": "a) Dodecaedro Pentagonal Tetartoédrico Izquierdo"}, {"n": 52, "s": "Cúbico (Isométrico)", "c": "Clase Tetartoédrica", "hm": "2 3", "sim": "3A2 4A3", "f": "a) Dodecaedro Pentagonal Tetartoédrico Derecho"}, {"n": 53, "s": "Cúbico (Isométrico)", "c": "Clase Tetartoédrica", "hm": "2 3", "sim": "3A2 4A3", "f": "a) Cubo\nb) Piritoedro\nc) Dodecaedro Rómbico\nd) Tetraedro Negativo"}, {"n": 54, "s": "Hexagonal (División Hexagonal)", "c": "Clase Dihexagonal Bipiramidal", "hm": "6/m 2/m 2/m", "sim": "1A6 6A2 7P C", "f": "a) Bipíramide Hexagonal de Primer Orden"}, {"n": 55, "s": "Hexagonal (División Hexagonal)", "c": "Clase Dihexagonal Bipiramidal", "hm": "6/m 2/m 2/m", "sim": "1A6 6A2 7P C", "f": "a) Bipíramide Hexagonal de Primer Orden\nb) Bipíramide Hexagonal de Segundo Orden"}, {"n": 56, "s": "Hexagonal (División Hexagonal)", "c": "Clase Dihexagonal Bipiramidal", "hm": "6/m 2/m 2/m", "sim": "1A6 6A2 7P C", "f": "a) Bipíramide Hexagonal de Primer Orden\nb) Bipíramide Hexagonal de Segundo Orden (Parámetros 2:2:1:2)"}, {"n": 57, "s": "Hexagonal (División Hexagonal)", "c": "Clase Dihexagonal Bipiramidal", "hm": "6/m 2/m 2/m", "sim": "1A6 6A2 7P C", "f": "a) Bipíramide Dihexagonal (Parámetros 3:3/2:1:1)"}, {"n": 58, "s": "Hexagonal (División Hexagonal)", "c": "Clase Dihexagonal Bipiramidal", "hm": "6/m 2/m 2/m", "sim": "1A6 6A2 7P C", "f": "a) Prisma Hexagonal de Primer Orden\nb) Pinacoide Basal"}, {"n": 59, "s": "Hexagonal (División Hexagonal)", "c": "Clase Dihexagonal Bipiramidal", "hm": "6/m 2/m 2/m", "sim": "1A6 6A2 7P C", "f": "a) Prisma Hexagonal de Segundo Orden (Parámetros 3:3/2:1:0)\nb) Pinacoide Basal"}, {"n": 60, "s": "Hexagonal (División Hexagonal)", "c": "Clase Dihexagonal Bipiramidal", "hm": "6/m 2/m 2/m", "sim": "1A6 6A2 7P C", "f": "a) Prisma Hexagonal de Primer Orden\nb) Bipíramide Hexagonal de Primer Orden"}, {"n": 61, "s": "Hexagonal (División Hexagonal)", "c": "Clase Dihexagonal Bipiramidal", "hm": "6/m 2/m 2/m", "sim": "1A6 6A2 7P C", "f": "a) Prisma Hexagonal de Primer Orden\nb) Pinacoide Basal\nc) Bipíramide Hexagonal de Primer Orden"}, {"n": 62, "s": "Hexagonal (División Hexagonal)", "c": "Clase Dihexagonal Bipiramidal", "hm": "6/m 2/m 2/m", "sim": "1A6 6A2 7P C", "f": "a) Prisma Hexagonal de Primer Orden\nb) Prisma Hexagonal de Segundo Orden\nc) Pinacoide Basal"}, {"n": 63, "s": "Hexagonal (División Hexagonal)", "c": "Clase Dihexagonal Bipiramidal", "hm": "6/m 2/m 2/m", "sim": "1A6 6A2 7P C", "f": "a) Prisma Dihexagonal\nb) Pinacoide Basal"}, {"n": 64, "s": "Hexagonal (División Hexagonal)", "c": "Clase Hexagonal Trapezoédrica", "hm": "6 2 2", "sim": "1A6 6A2", "f": "a) Trapezoedro Hexagonal Derecho"}, {"n": 65, "s": "Hexagonal (División Hexagonal)", "c": "Clase Hexagonal Bipiramidal", "hm": "6/m", "sim": "1A6 1P C", "f": "a) Bipíramide Hexagonal"}, {"n": 66, "s": "Hexagonal (División Hexagonal)", "c": "Clase Hexagonal Bipiramidal", "hm": "6/m", "sim": "1A6 1P C", "f": "a) Prisma Hexagonal\nb) Pinacoide Basal"}, {"n": 67, "s": "Hexagonal (División Hexagonal)", "c": "Clase Bipiramidal Ditrigonal", "hm": "6̄ m 2", "sim": "1Ā6 3A2 4P", "f": "a) Bipíramide Ditrigonal"}, {"n": 68, "s": "Hexagonal (División Hexagonal)", "c": "Clase Bipiramidal Ditrigonal", "hm": "6̄ m 2", "sim": "1Ā6 3A2 4P", "f": "a) Prisma Ditrigonal\nb) Pinacoide Basal"}, {"n": 69, "s": "Trigonal (División Romboédrica)", "c": "Clase Ditrigonal Escalenoédrica", "hm": "3̄ 2/m", "sim": "1Ā3 3A2 3P C", "f": "a) Romboedro Positivo"}, {"n": 70, "s": "Trigonal (División Romboédrica)", "c": "Clase Ditrigonal Escalenoédrica", "hm": "3̄ 2/m", "sim": "1Ā3 3A2 3P C", "f": "a) Romboedro Negativo"}, {"n": 71, "s": "Trigonal (División Romboédrica)", "c": "Clase Ditrigonal Escalenoédrica", "hm": "3̄ 2/m", "sim": "1Ā3 3A2 3P C", "f": "a) Escalenoedro Trigonal Positivo"}, {"n": 72, "s": "Trigonal (División Romboédrica)", "c": "Clase Ditrigonal Escalenoédrica", "hm": "3̄ 2/m", "sim": "1Ā3 3A2 3P C", "f": "a) Romboedro Positivo\nb) Romboedro Negativo"}, {"n": 73, "s": "Trigonal (División Romboédrica)", "c": "Clase Ditrigonal Escalenoédrica", "hm": "3̄ 2/m", "sim": "1Ā3 3A2 3P C", "f": "a) Romboedro Positivo\nb) Prisma Hexagonal de Segundo Orden"}, {"n": 74, "s": "Trigonal (División Romboédrica)", "c": "Clase Ditrigonal Escalenoédrica", "hm": "3̄ 2/m", "sim": "1Ā3 3A2 3P C", "f": "a) Romboedro Positivo\nb) Pinacoide Basal"}, {"n": 75, "s": "Trigonal (División Romboédrica)", "c": "Clase Ditrigonal Escalenoédrica", "hm": "3̄ 2/m", "sim": "1Ā3 3A2 3P C", "f": "a) Escalenoedro Trigonal\nb) Romboedro"}, {"n": 76, "s": "Trigonal (División Romboédrica)", "c": "Clase Ditrigonal Escalenoédrica", "hm": "3̄ 2/m", "sim": "1Ā3 3A2 3P C", "f": "a) Escalenoedro Trigonal\nb) Prisma Hexagonal"}, {"n": 77, "s": "Trigonal (División Romboédrica)", "c": "Clase Ditrigonal Escalenoédrica", "hm": "3̄ 2/m", "sim": "1Ā3 3A2 3P C", "f": "Macla de contacto de Romboedro (Ley de la Calcita / Ley de la Llama).\nPlano de macla y composición romboédrico."}, {"n": 78, "s": "Trigonal (División Romboédrica)", "c": "Clase Ditrigonal Escalenoédrica", "hm": "3̄ 2/m", "sim": "1Ā3 3A2 3P C", "f": "Macla de contacto de Escalenoedro.\nPlano de macla paralelo al pinacoide basal."}, {"n": 79, "s": "Trigonal (División Romboédrica)", "c": "Clase Ditrigonal Escalenoédrica", "hm": "3̄ 2/m", "sim": "1Ā3 3A2 3P C", "f": "Macla de penetración de Romboedro."}, {"n": 80, "s": "Trigonal (División Romboédrica)", "c": "Clase Ditrigonal Escalenoédrica", "hm": "3̄ 2/m", "sim": "1Ā3 3A2 3P C", "f": "Macla de Calcita ('Diente de Perro')."}, {"n": 81, "s": "Trigonal (División Romboédrica)", "c": "Clase Piramidal Ditrigonal", "hm": "3m", "sim": "1A3 3P", "f": "a) Pirámide Ditrigonal\nb) Pedión"}, {"n": 82, "s": "Trigonal (División Romboédrica)", "c": "Clase Piramidal Ditrigonal", "hm": "3m", "sim": "1A3 3P", "f": "a) Prisma Ditrigonal\nb) Pedión"}, {"n": 83, "s": "Trigonal (División Romboédrica)", "c": "Clase Piramidal Ditrigonal", "hm": "3m", "sim": "1A3 3P", "f": "Turmalina (Prisma Ditrigonal + Pirámide Trigonal + Pedión)"}, {"n": 84, "s": "Trigonal (División Romboédrica)", "c": "Clase Trapezoédrica Trigonal", "hm": "3 2", "sim": "1A3 3A2", "f": "a) Trapezoedro Trigonal Derecho (Cuarzo alfa derecho)"}, {"n": 85, "s": "Trigonal (División Romboédrica)", "c": "Clase Trapezoédrica Trigonal", "hm": "3 2", "sim": "1A3 3A2", "f": "a) Trapezoedro Trigonal Izquierdo (Cuarzo alfa izquierdo)"}, {"n": 86, "s": "Trigonal (División Romboédrica)", "c": "Clase Trapezoédrica Trigonal", "hm": "3 2", "sim": "1A3 3A2", "f": "Macla del Cuarzo (Ley de Japón / Ley de Brasil / Ley de Dauphiné)."}, {"n": 87, "s": "Trigonal (División Romboédrica)", "c": "Clase Romboédrica", "hm": "3̄", "sim": "1Ā3 C", "f": "a) Romboedro de Cuarta Posición (Dioptasa / Ilmenita)"}, {"n": 88, "s": "Trigonal (División Romboédrica)", "c": "Clase Romboédrica", "hm": "3̄", "sim": "1Ā3 C", "f": "a) Romboedro\nb) Prisma Hexagonal"}, {"n": 89, "s": "Tetragonal", "c": "Clase Ditetragonal Bipiramidal", "hm": "4/m 2/m 2/m", "sim": "1A4 4A2 5P C", "f": "a) Bipíramide Tetragonal de Primer Orden"}, {"n": 90, "s": "Tetragonal", "c": "Clase Ditetragonal Bipiramidal", "hm": "4/m 2/m 2/m", "sim": "1A4 4A2 5P C", "f": "a) Bipíramide Tetragonal de Segundo Orden"}, {"n": 91, "s": "Tetragonal", "c": "Clase Ditetragonal Bipiramidal", "hm": "4/m 2/m 2/m", "sim": "1A4 4A2 5P C", "f": "a) Bipíramide Ditetragonal"}, {"n": 92, "s": "Tetragonal", "c": "Clase Ditetragonal Bipiramidal", "hm": "4/m 2/m 2/m", "sim": "1A4 4A2 5P C", "f": "a) Prisma Tetragonal de Primer Orden\nb) Pinacoide Basal"}, {"n": 93, "s": "Tetragonal", "c": "Clase Ditetragonal Bipiramidal", "hm": "4/m 2/m 2/m", "sim": "1A4 4A2 5P C", "f": "a) Prisma Tetragonal de Segundo Orden\nb) Pinacoide Basal"}, {"n": 94, "s": "Tetragonal", "c": "Clase Ditetragonal Bipiramidal", "hm": "4/m 2/m 2/m", "sim": "1A4 4A2 5P C", "f": "a) Prisma Tetragonal de Primer Orden\nb) Bipíramide Tetragonal de Primer Orden"}, {"n": 95, "s": "Tetragonal", "c": "Clase Ditetragonal Bipiramidal", "hm": "4/m 2/m 2/m", "sim": "1A4 4A2 5P C", "f": "a) Prisma Tetragonal de Segundo Orden\nb) Bipíramide Tetragonal de Primer Orden"}, {"n": 96, "s": "Tetragonal", "c": "Clase Ditetragonal Bipiramidal", "hm": "4/m 2/m 2/m", "sim": "1A4 4A2 5P C", "f": "a) Prisma Tetragonal de Primer Orden\nb) Prisma Tetragonal de Segundo Orden\nc) Pinacoide Basal"}, {"n": 97, "s": "Tetragonal", "c": "Clase Ditetragonal Bipiramidal", "hm": "4/m 2/m 2/m", "sim": "1A4 4A2 5P C", "f": "a) Bipíramide Tetragonal de Primer Orden\nb) Bipíramide Tetragonal de Segundo Orden\nc) Prisma Tetragonal de Segundo Orden\nd) Prisma Tetragonal de Primer Orden\ne) Bipíramide Ditetragonal"}, {"n": 98, "s": "Tetragonal", "c": "Clase Ditetragonal Bipiramidal", "hm": "4/m 2/m 2/m", "sim": "1A4 4A2 5P C", "f": "Macla en codo de Casiterita / Rutilo.\nPlano de macla y composición en codo."}, {"n": 99, "s": "Tetragonal", "c": "Clase Ditetragonal Bipiramidal", "hm": "4/m 2/m 2/m", "sim": "1A4 4A2 5P C", "f": "a) Bipíramide Ditetragonal"}, {"n": 100, "s": "Tetragonal", "c": "Clase Ditetragonal Bipiramidal", "hm": "4/m 2/m 2/m", "sim": "1A4 4A2 5P C", "f": "a) Prisma Ditetragonal\nb) Pinacoide Basal"}, {"n": 101, "s": "Tetragonal", "c": "Clase Ditetragonal Bipiramidal", "hm": "4/m 2/m 2/m", "sim": "1A4 4A2 5P C", "f": "Macla de contacto de Casiterita en codo."}, {"n": 102, "s": "Tetragonal", "c": "Clase Ditetragonal Bipiramidal", "hm": "4/m 2/m 2/m", "sim": "1A4 4A2 5P C", "f": "Macla geniculada de Rutilo."}, {"n": 103, "s": "Tetragonal", "c": "Clase Ditetragonal Bipiramidal", "hm": "4/m 2/m 2/m", "sim": "1A4 4A2 5P C", "f": "Circón: a) Prisma Tetragonal, b) Bipíramide Tetragonal"}, {"n": 104, "s": "Tetragonal", "c": "Clase Ditetragonal Bipiramidal", "hm": "4/m 2/m 2/m", "sim": "1A4 4A2 5P C", "f": "Vesubianita / Idocrasa: combinación de Prismas, Bipíramides y Pinacoide Basal."}, {"n": 105, "s": "Tetragonal", "c": "Clase Trapezoédrica Tetragonal", "hm": "4 2 2", "sim": "1A4 4A2", "f": "a) Trapezoedro Tetragonal Derecho"}, {"n": 106, "s": "Tetragonal", "c": "Clase Trapezoédrica Tetragonal", "hm": "4 2 2", "sim": "1A4 4A2", "f": "a) Trapezoedro Tetragonal Izquierdo"}, {"n": 107, "s": "Tetragonal", "c": "Clase Bipiramidal Tetragonal", "hm": "4/m", "sim": "1A4 1P C", "f": "a) Bipíramide Tetragonal de Tercer Orden (Scheelita)"}, {"n": 108, "s": "Tetragonal", "c": "Clase Bipiramidal Tetragonal", "hm": "4/m", "sim": "1A4 1P C", "f": "a) Prisma Tetragonal de Tercer Orden\nb) Pinacoide Basal"}, {"n": 109, "s": "Tetragonal", "c": "Clase Escalenoédrica Tetragonal", "hm": "4̄ 2 m", "sim": "1Ā4 2A2 2P", "f": "a) Biesfenoide Tetragonal (Tetraedro Tetragonal)"}, {"n": 110, "s": "Tetragonal", "c": "Clase Escalenoédrica Tetragonal", "hm": "4̄ 2 m", "sim": "1Ā4 2A2 2P", "f": "a) Escalenoedro Tetragonal (Calcopirita)"}, {"n": 111, "s": "Tetragonal", "c": "Clase Escalenoédrica Tetragonal", "hm": "4̄ 2 m", "sim": "1Ā4 2A2 2P", "f": "a) Biesfenoide Tetragonal\nb) Bipíramide Tetragonal\nc) Pinacoide Basal"}, {"n": 112, "s": "Ortorrómbico (Rómbico)", "c": "Clase Bipiramidal Rómbica", "hm": "2/m 2/m 2/m", "sim": "3A2 3P C", "f": "a) Prisma de tercer orden\nb) Bipíramide Rómbica\nc) Pinacoide Frontal"}, {"n": 113, "s": "Ortorrómbico (Rómbico)", "c": "Clase Bipiramidal Rómbica", "hm": "2/m 2/m 2/m", "sim": "3A2 3P C", "f": "Macla de contacto de Aragonito.\nPlano de macla de contacto prismático.\nFormas: a) Prisma de primer orden, b) Prisma, c) Prisma."}, {"n": 114, "s": "Ortorrómbico (Rómbico)", "c": "Clase Bipiramidal Rómbica", "hm": "2/m 2/m 2/m", "sim": "3A2 3P C", "f": "Macla de contacto de Aragonito.\nFormas: a) Pinacoide Lateral, b) Prisma, c) Prisma de primer orden."}, {"n": 115, "s": "Ortorrómbico (Rómbico)", "c": "Clase Bipiramidal Rómbica", "hm": "2/m 2/m 2/m", "sim": "3A2 3P C", "f": "a) Prisma de tercer orden\nb) Pinacoide Frontal\nc) Bipíramide\nd) Prisma de segundo orden"}, {"n": 116, "s": "Ortorrómbico (Rómbico)", "c": "Clase Bipiramidal Rómbica", "hm": "2/m 2/m 2/m", "sim": "3A2 3P C", "f": "a) Pinacoide Basal\nb) Prisma de tercer orden\nc) Domo / Prisma de primer orden\nd) Domo de segundo orden"}, {"n": 117, "s": "Ortorrómbico (Rómbico)", "c": "Clase Bipiramidal Rómbica", "hm": "2/m 2/m 2/m", "sim": "3A2 3P C", "f": "a) Bipíramide Rómbica\nb) Prisma de tercer orden"}, {"n": 118, "s": "Ortorrómbico (Rómbico)", "c": "Clase Bipiramidal Rómbica", "hm": "2/m 2/m 2/m", "sim": "3A2 3P C", "f": "a) Prisma de tercer orden\nb) Pinacoide Basal\nc) Prisma de primer orden\nd) Bipíramide Rómbica"}, {"n": 119, "s": "Ortorrómbico (Rómbico)", "c": "Clase Piramidal Rómbica", "hm": "mm2", "sim": "1A2 2P", "f": "a) Bipíramide Rómbica inferior\nb) Pedión\nc) Pinacoide Frontal\nd) Prisma de tercer orden\ne) Domo de primer orden\nf) Domo de segundo orden"}, {"n": 120, "s": "Ortorrómbico (Rómbico)", "c": "Clase Bipiramidal Rómbica", "hm": "2/m 2/m 2/m", "sim": "3A2 3P C", "f": "Macla de la Estaurolita a 90° (Penetración).\nPlano de macla paralelo a una cara del prisma de primer orden.\nFormas: a) Prisma de tercer orden, b) Pinacoide Lateral, c) Pinacoide Basal."}, {"n": 121, "s": "Ortorrómbico (Rómbico)", "c": "Clase Bipiramidal Rómbica", "hm": "2/m 2/m 2/m", "sim": "3A2 3P C", "f": "Macla de Estaurolita en Cruz de San Andrés a 60°.\nPlano de macla paralelo a una cara de la bipíramide."}, {"n": 122, "s": "Ortorrómbico (Rómbico)", "c": "Clase Bipiramidal Rómbica", "hm": "2/m 2/m 2/m", "sim": "3A2 3P C", "f": "a) Prisma de segundo orden\nb) Prisma de primer orden\nc) Prisma de tercer orden\nd) Bipíramide Rómbica"}, {"n": 123, "s": "Ortorrómbico (Rómbico)", "c": "Clase Rómbica Biesfenoidal", "hm": "2 2 2", "sim": "3A2", "f": "a) Biesfenoide Rómbico Derecho"}, {"n": 124, "s": "Ortorrómbico (Rómbico)", "c": "Clase Rómbica Biesfenoidal", "hm": "2 2 2", "sim": "3A2", "f": "a) Biesfenoide Rómbico Izquierdo"}, {"n": 125, "s": "Ortorrómbico (Rómbico)", "c": "Clase Escalenoédrica Tetragonal", "hm": "4̄ 2 m", "sim": "1Ā4 2A2 2P", "f": "Perteneciente a Clase Escalenoédrica Tetragonal (reordenado)."}, {"n": 126, "s": "Monoclínico", "c": "Clase Prismática Monoclínica", "hm": "2/m", "sim": "1A2 1P C", "f": "a) Pinacoide Frontal\nb) Pinacoide Lateral\nc) Pinacoide Basal"}, {"n": 127, "s": "Monoclínico", "c": "Clase Prismática Monoclínica", "hm": "2/m", "sim": "1A2 1P C", "f": "a) Prisma de primer orden\nb) Pinacoide Frontal"}, {"n": 128, "s": "Monoclínico", "c": "Clase Prismática Monoclínica", "hm": "2/m", "sim": "1A2 1P C", "f": "a) Prisma de tercer orden\nb) Prisma de primer orden"}, {"n": 129, "s": "Monoclínico", "c": "Clase Prismática Monoclínica", "hm": "2/m", "sim": "1A2 1P C", "f": "a) Prisma de tercer orden\nb) Pinacoide Frontal\nc) Pinacoide Basal\nd) Prisma de cuarto orden\ne) Prisma de primer orden"}, {"n": 130, "s": "Monoclínico", "c": "Clase Prismática Monoclínica", "hm": "2/m", "sim": "1A2 1P C", "f": "a) Pinacoide Lateral\nb) Prisma de primer orden\nc) Prisma de tercer orden"}, {"n": 131, "s": "Monoclínico", "c": "Clase Prismática Monoclínica", "hm": "2/m", "sim": "1A2 1P C", "f": "Macla de Yeso en 'cola de golondrina'.\nPlano de macla de contacto paralelo al pinacoide frontal.\nFormas: a) Pinacoide Lateral, b) Prisma de tercer orden, c) Prisma de primer orden."}, {"n": 132, "s": "Monoclínico", "c": "Clase Prismática Monoclínica", "hm": "2/m", "sim": "1A2 1P C", "f": "a) Pinacoide Frontal\nb) Pinacoide Basal\nc) Prisma de tercer orden\nd) Prisma de cuarto orden"}, {"n": 133, "s": "Monoclínico", "c": "Clase Prismática Monoclínica", "hm": "2/m", "sim": "1A2 1P C", "f": "a) Prisma Monoclínico\nb) Pinacoide Frontal\nc) Pinacoide Basal\nd) Prisma de cuarto orden"}, {"n": 134, "s": "Monoclínico", "c": "Clase Prismática Monoclínica", "hm": "2/m", "sim": "1A2 1P C", "f": "a) Pinacoide Frontal\nb) Pinacoide Lateral\nc) Prisma de primer orden\nd) Prisma de tercer orden"}, {"n": 135, "s": "Monoclínico", "c": "Clase Prismática Monoclínica", "hm": "2/m", "sim": "1A2 1P C", "f": "a) Pinacoide Frontal\nb) Pinacoide Lateral\nc) Pinacoide Basal\nd) Prisma de cuarto orden positivo\ne) Prisma de tercer orden\nf) Prisma de cuarto orden positivo"}, {"n": 136, "s": "Monoclínico", "c": "Clase Prismática Monoclínica", "hm": "2/m", "sim": "1A2 1P C", "f": "a) Prisma de tercer orden\nb) Pinacoide Lateral\nc) Pinacoide Basal\nd) Prisma de cuarto orden negativo"}, {"n": 137, "s": "Monoclínico", "c": "Clase Prismática Monoclínica", "hm": "2/m", "sim": "1A2 1P C", "f": "a) Pinacoide Frontal\nb) Pinacoide Lateral\nc) Pinacoide Basal\nd) Pinacoide de segundo orden"}, {"n": 138, "s": "Monoclínico", "c": "Clase Prismática Monoclínica", "hm": "2/m", "sim": "1A2 1P C", "f": "a) Pinacoide Lateral\nb) Prisma de tercer orden\nc) Pinacoide de segundo orden positivo\nd) Prisma de primer orden\ne) Prisma de cuarto orden negativo"}, {"n": 139, "s": "Monoclínico", "c": "Clase Prismática Monoclínica", "hm": "2/m", "sim": "1A2 1P C", "f": "a) Prisma de tercer orden\nb) Prisma de tercer orden\nc) Pinacoide Lateral\nd) Pinacoide Basal\ne) Pinacoide de segundo orden negativo"}, {"n": 140, "s": "Monoclínico", "c": "Clase Prismática Monoclínica", "hm": "2/m", "sim": "1A2 1P C", "f": "Augita Monoclínica:\na) Pinacoide Frontal\nb) Pinacoide Lateral\nc) Prisma Monoclínico\nd) Pinacoide Basal"}, {"n": 141, "s": "Monoclínico", "c": "Clase Prismática Monoclínica", "hm": "2/m", "sim": "1A2 1P C", "f": "Hornblenda Monoclínica:\na) Pinacoide Lateral\nb) Prisma Monoclínico\nc) Domo / Prisma Monoclínico"}, {"n": 142, "s": "Monoclínico", "c": "Clase Prismática Monoclínica", "hm": "2/m", "sim": "1A2 1P C", "f": "Epidota Monoclínica:\na) Pinacoide Frontal\nb) Pinacoide Basal\nc) Domo\nd) Prisma Monoclínico"}, {"n": 143, "s": "Monoclínico", "c": "Clase Prismática Monoclínica", "hm": "2/m", "sim": "1A2 1P C", "f": "a) Prisma de tercer orden\nb) Pinacoide Basal\nc) Pinacoide de primer orden\nd) Pinacoide de segundo orden negativo"}, {"n": 144, "s": "Monoclínico", "c": "Clase Prismática Monoclínica", "hm": "2/m", "sim": "1A2 1P C", "f": "Moscovita / Mica Monoclínica:\na) Pinacoide Basal\nb) Prisma Monoclínico\nc) Pinacoide Lateral"}, {"n": 145, "s": "Monoclínico", "c": "Clase Prismática Monoclínica", "hm": "2/m", "sim": "1A2 1P C", "f": "Biotita Monoclínica:\na) Pinacoide Basal\nb) Prisma Monoclínico"}, {"n": 146, "s": "Triclínico", "c": "Clase Pinacoidal Triclínica", "hm": "1̄", "sim": "C", "f": "a) Pinacoide Frontal\nb) Pinacoide Lateral\nc) Pinacoide Basal"}, {"n": 147, "s": "Triclínico", "c": "Clase Pinacoidal Triclínica", "hm": "1̄", "sim": "C", "f": "a) Pinacoide Frontal\nb) Pinacoide Lateral\nc) Pinacoide de tercer orden negativo\nd) Pinacoide de tercer orden positivo"}, {"n": 148, "s": "Triclínico", "c": "Clase Pinacoidal Triclínica", "hm": "1̄", "sim": "C", "f": "Albita Triclínica:\na) Pinacoide Frontal\nb) Pinacoide Lateral\nc) Pinacoide de tercer orden negativo\nd) Pinacoide de tercer orden negativo\ne) Pinacoide de tercer orden positivo\nf) Pinacoide Basal"}, {"n": 149, "s": "Triclínico", "c": "Clase Pinacoidal Triclínica", "hm": "1̄", "sim": "C", "f": "Cianita Triclínica:\na) Pinacoide Lateral\nb) Pinacoide de tercer orden negativo\nc) Pinacoide de tercer orden negativo\nd) Pinacoide de cuarto orden negativo izquierdo\ne) Pinacoide de primer orden negativo\nf) Pinacoide de cuarto orden negativo"}, {"n": 150, "s": "Triclínico", "c": "Clase Pinacoidal Triclínica", "hm": "1̄", "sim": "C", "f": "Macla Polisintética de Albita (Ley de la Albita).\nPlano de macla y composición paralelo al pinacoide lateral.\nEje de macla: Paralelo a Z (rotación 180° alrededor de Z).\nFormas:\na) Pinacoide Lateral\nb) Pinacoide de tercer orden positivo\nc) Pinacoide de tercer orden positivo\nd) Pinacoide Lateral\ne) Pinacoide de segundo orden negativo\nf) Pinacoide de primer orden negativo\ng) Pinacoide de primer orden positivo"}];
+
+        const searchInput = document.getElementById("searchInput");
+        const sysChips = document.getElementById("sysChips");
+        const gridEl = document.getElementById("modelsGrid");
+
+        let currentSys = "ALL";
+        let searchQuery = "";
+
+        function renderModels() {
+            gridEl.innerHTML = "";
+
+            let filtered = modelsData.filter(m => {
+                const matchSys = currentSys === "ALL" || m.s.includes(currentSys);
+                const q = searchQuery.toLowerCase().strip ? searchQuery.toLowerCase().strip() : searchQuery.toLowerCase();
+                if (!q) return matchSys;
+
+                const matchNum = m.n.toString() === q || m.n.toString().startsWith(q);
+                const matchText = m.s.toLowerCase().includes(q) || 
+                                  m.c.toLowerCase().includes(q) || 
+                                  m.hm.toLowerCase().includes(q) || 
+                                  m.f.toLowerCase().includes(q);
+
+                return matchSys && (matchNum || matchText);
+            });
+
+            if (filtered.length === 0) {
+                gridEl.innerHTML = `<div class="no-results">No se encontró el modelo introducido. Ingresa un número de 1 a 150.</div>`;
+                return;
+            }
+
+            filtered.forEach(m => {
+                const card = document.createElement("div");
+                card.className = "card";
+                card.innerHTML = `
+                    <div class="card-top">
+                        <div class="model-num">Modelo ${m.n}</div>
+                        <div class="sys-badge">${m.s}</div>
+                    </div>
+
+                    <div class="class-title">${m.c}</div>
+
+                    <div class="notation-box">
+                        <div><span>Hermann-Mauguin:</span> <span class="notation-val">${m.hm.replace(/([0-9])̄/g, '<span style="text-decoration: overline;">$1</span>')}</span></div>
+                        <div><span>Simetría Sencilla:</span> <span class="notation-val">${m.sim.replace(/Ā([0-9])/g, 'A<span style="text-decoration: overline;">$1</span>').replace(/A([0-9])̄/g, 'A<span style="text-decoration: overline;">$1</span>')}</span></div>
+                    </div>
+
+                    <div class="forms-box">${m.f}</div>
+                `;
+                gridEl.appendChild(card);
+            });
+        }
+
+        searchInput.addEventListener("input", (e) => {
+            searchQuery = e.target.value;
+            renderModels();
+        });
+
+        sysChips.addEventListener("click", (e) => {
+            if (e.target.classList.contains("chip")) {
+                document.querySelectorAll(".chip").forEach(c => c.classList.remove("active"));
+                e.target.classList.add("active");
+                currentSys = e.target.getAttribute("data-sys");
+                renderModels();
+            }
+        });
+
+        renderModels();
+    </script>
+</body>
+</html>
